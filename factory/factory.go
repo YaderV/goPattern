@@ -38,7 +38,7 @@ type PaymentBase struct {
 
 // Validate ..
 func (pm *PaymentBase) Validate() error {
-	if pm.invoice.Status == PaymentMethodCash {
+	if pm.invoice.Status == InvoiceStatusPaid {
 		return fmt.Errorf("this invoice is already paid")
 	}
 	return nil
@@ -57,8 +57,7 @@ func (pc *PMCash) Pay() error {
 	}
 	pc.invoice.Status = InvoiceStatusPaid
 	pc.invoice.PaymentMethod = PaymentMethodCash
-	// ...
-	fmt.Println("We paid with cash")
+	// We paid in cash and continue with our logic...
 	return nil
 }
 
@@ -75,8 +74,7 @@ func (pcc *PMCC) Pay() error {
 	}
 	pcc.invoice.Status = InvoiceStatusPaid
 	pcc.invoice.PaymentMethod = PaymentMethodCash
-	// ...
-	fmt.Println("We paid with credit card")
+	// We paid with credit card and continue with our logic...
 	return nil
 }
 
